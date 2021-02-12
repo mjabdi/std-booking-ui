@@ -98,8 +98,9 @@ const useStyles = makeStyles((theme) => ({
 
   icon: {
     marginRight: "10px",
-    fontSize: "1.2rem",
-    color: theme.palette.secondary.main,
+    fontSize: "1.1rem",
+    // color: theme.palette.primary.main,
+    color : "#777",
     float: "left",
   },
 
@@ -220,7 +221,7 @@ export default function ReviewForm() {
             textAlign: "justify",
           }}
         >
-          You can always change or cancel your appointment up-to 24 hours to your appointment with ease through your patient portal
+          You can always change or cancel your appointment up-to 24 hours to your appointment with ease through your patient portal (only if you have entered your email address in the previous step)
         </Alert>
       </div>
       </Fade>
@@ -287,7 +288,18 @@ export default function ReviewForm() {
                       />
                       Package:
                     </span>
-                    <span className={classes.infoData}> {"Private GP"} </span>
+                    <span className={classes.infoData}> {state.packageName || '-'} </span>
+                  </li>
+
+                  <li className={classes.li}>
+                    <span className={classes.infoTitleTime}>
+                      <FontAwesomeIcon
+                        icon={faPoundSign}
+                        className={classes.icon}
+                      />
+                      Price:
+                    </span>
+                    <span className={classes.infoData}> {state.packagePrice || '-'} </span>
                   </li>
                 </ul>
               </div>
@@ -308,16 +320,16 @@ export default function ReviewForm() {
                   </li>
                   <li className={classes.li}>
                     <span className={classes.infoTitle}>Telephone</span>
-                    <span className={classes.infoData}> {state.phone} </span>
+                    <span className={classes.infoData}> {state.phone || '-'} </span>
                   </li>
                   <li className={classes.li}>
                     <span className={classes.infoTitle}>Email Address</span>
-                    <span className={classes.infoData}> {state.email} </span>
+                    <span className={classes.infoData}> {state.email || '-'} </span>
                   </li>
 
                   <li className={classes.li}>
                     <span className={classes.infoTitle}>Notes</span>
-                    <span className={classes.infoData}> {state.notes} </span>
+                    <span className={classes.infoData}> {state.notes || '-'} </span>
                   </li>
                 </ul>
               </div>

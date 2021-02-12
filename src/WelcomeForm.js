@@ -107,8 +107,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   doctorImage: {
-    width: "40px",
-    height: "40px",
+    width: "28px",
+    height: "34px",
     marginRight: "10px",
   },
 
@@ -296,7 +296,7 @@ const getStartedClicked = (event) => {
               />
               
               <span className={classes.pageTitle}> 
-                  Private GP in London - £150
+                  Private STD Check in London 
               </span>
             </div>
           </Typography>
@@ -306,7 +306,7 @@ const getStartedClicked = (event) => {
               isMobile ? classes.textContentMobile : classes.textContent
             }
           >
-            -&nbsp; Flexible appointment for private GP services whenever you need.
+            -&nbsp; Flexible appointment for private STD services whenever you need.
           </p>
 
           <p

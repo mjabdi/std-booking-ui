@@ -4,7 +4,7 @@ export default class BookService {
 
     static bookAppointment = (payload) =>
     {
-       return API.post('/api/gp/book/bookappointment', payload);
+       return API.post('/api/std/book/bookappointment', payload);
     }
 
     static getNewReference = () =>
@@ -14,7 +14,7 @@ export default class BookService {
 
     static getBookingById = (id) =>
     {
-        return API.get(`/api/gp/book/getbookingbyid?id=${id}`);
+        return API.get(`/api/std/book/getbookingbyid?id=${id}`);
     }
 
 }

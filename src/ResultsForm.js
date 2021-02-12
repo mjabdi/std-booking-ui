@@ -1,59 +1,47 @@
-
-
-import React, { useEffect } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import GlobalState from './GlobalState';
-import doneImage from './images/ok.png';
-import errorImage from './images/error.png';
-import * as dateformat from 'dateformat';
-import Alert from '@material-ui/lab/Alert';
-
-
+import React, { useEffect } from "react";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import GlobalState from "./GlobalState";
+import doneImage from "./images/ok.png";
+import errorImage from "./images/error.png";
+import * as dateformat from "dateformat";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
+  bold: {
+    fontWeight: "800",
+    padding: "5px",
+  },
 
-    bold: {
-        fontWeight: "800",
-        padding: "5px"
-      },
+  doneImage: {
+    width: "240px",
+    height: "150px",
+    margin: "20px",
+  },
 
-      doneImage: {
-        width: "240px",
-        height: "150px",
-        margin: "20px"
-      },
-
-      errorImage: {
-        width: "200px",
-        height: "190px",
-        margin: "20px"
-      },
-    
-
-
+  errorImage: {
+    width: "200px",
+    height: "190px",
+    margin: "20px",
+  },
 }));
-
 
 export default function ResultsForm() {
   const [state, setState] = React.useContext(GlobalState);
   const classes = useStyles();
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, []);
 
-  const AllError = (results) =>
-  {
-      for (var i=0 ; i < results.length; i++)
-      {
-          if (results[i].data.status === 'OK')
-          {
-              return false;
-          }
+  const AllError = (results) => {
+    for (var i = 0; i < results.length; i++) {
+      if (results[i].data.status === "OK") {
+        return false;
       }
-      return true;
-  }
+    }
+    return true;
+  };
 
   return (
     <React.Fragment>
@@ -72,9 +60,13 @@ export default function ResultsForm() {
             <br />
             <Typography variant="subtitle1">
               Your booking number is{" "}
-              <span className={classes.bold}>{`"${state.ref}"`}</span> . We have
-              emailed your booking information, and will look forward to meet
-              you at the clinic.
+              <span className={classes.bold}>{`"${state.ref}"`}</span>.
+              {(!state.email ||
+                state.email.trim().length === 0) &&
+                " Please have this number handy when you attend the clinic for your appointment."}
+              {state.email &&
+                state.email.trim().length > 0 &&
+                " We have emailed your booking information, and will look forward to meet you at the clinic."}
             </Typography>
           </React.Fragment>
         )}
@@ -143,8 +135,6 @@ export default function ResultsForm() {
                   have emailed you before.
                 </Typography>
               )}
-
-              
             </React.Fragment>
           )}
 

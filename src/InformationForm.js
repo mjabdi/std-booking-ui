@@ -27,6 +27,9 @@ import { format, addMinutes } from "date-fns";
 import dateformat from "dateformat";
 import { enGB } from "date-fns/locale";
 import DateField from "./DateField";
+import Alert from "@material-ui/lab/Alert";
+import Fade from "react-reveal/Fade";
+
 
 class UTCUtils extends DateFnsUtils {
   locale = enGB;
@@ -138,6 +141,23 @@ export default function InformationForm() {
         Enter your Info
       </Typography>
 
+      
+      <Fade down>
+      <div>
+        <Alert
+          severity="info"
+          style={{
+            marginBottom: "15px",
+            fontSize: "0.95rem",
+            lineHeight: "1.5rem",
+            textAlign: "justify",
+          }}
+        >
+          We care about your privacy, you don't have to enter your email address or mobile number, but if you provide us with an email address, we can send you the confirmation email and details of your appointment .
+        </Alert>
+      </div>
+      </Fade>
+
       <Grid
         container
         spacing={4}
@@ -159,21 +179,19 @@ export default function InformationForm() {
         <Grid item xs={12} md={6}>
           <TextField
             error={state.phoneError ? true : false}
-            required
             id="phone"
-            label="Phone Number"
+            label="Mobile Number (optional)"
             fullWidth
             autoComplete="tel"
             value={phone}
             onChange={phoneChanged}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={12}>
           <TextField
             error={state.emailError ? true : false}
-            required
             id="email"
-            label="Email Address"
+            label="Email Address (optional)"
             fullWidth
             autoComplete="email"
             type="email"
@@ -183,7 +201,7 @@ export default function InformationForm() {
           />
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <TextField
             error={state.retypeEmailError ? true : false}
             required
@@ -196,7 +214,7 @@ export default function InformationForm() {
             onChange={retypeEmailChanged}
             // helperText = 'This email address is where you will receive your results. Please tick the box below to confirm that this is a private email address to which you are happy for us to send your results.'
           />
-        </Grid>
+        </Grid> */}
 
         {/* <Grid item xs={12} className={classes.formControl} >
           <FormControlLabel className={classes.formControl}  style={ {color: state.emailConfirmedError ? "red" : ''}} 
@@ -218,7 +236,7 @@ export default function InformationForm() {
             onChange={notesChanged}
             multiline
             rows={4}
-            placeholder="please enter your note here..."
+            placeholder="If there's anything you want to tell the doctor beforehand, enter it here..."
             variant="outlined"
           />
         </Grid>
