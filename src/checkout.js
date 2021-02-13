@@ -248,7 +248,7 @@ export default function Checkout() {
           phone: state.phone || '',
           notes: state.notes || '',
           packageName : state.packageName,
-          OTCCharges: parseInt(state.packagePrice.substr(1))
+          estimatedPrice: parseFloat(state.packagePrice.substr(1))
         };
 
         const promise = BookService.bookAppointment({

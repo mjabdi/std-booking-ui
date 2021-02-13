@@ -20,7 +20,7 @@ const getPathId = () =>
 }
 
 function App() {
-  const [state, setState] = React.useState({activeStep : 0, bookingDate: null, persons: []});
+  const [state, setState] = React.useState({activeStep : 0, bookingDate: null, persons: [], indivisualTests: [], indivisualCombos: []});
 
   useEffect(() => {
     

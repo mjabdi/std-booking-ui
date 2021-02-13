@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "justify",
     marginTop: "20px",
     position: "relative",
-   
   },
 
   boxTitle: {
@@ -100,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "10px",
     fontSize: "1.1rem",
     // color: theme.palette.primary.main,
-    color : "#777",
+    color: "#777",
     float: "left",
   },
 
@@ -194,7 +193,40 @@ export default function ReviewForm() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    calculatePrice();
   }, []);
+
+  const calculatePrice = () => {
+    let price = 0;
+    let packageDetails = ''
+    if (state.packageName === "Indivisual Tests") {
+      state.indivisualTests.forEach((element,index) => {
+        price += parseFloat(element.price.substr(1));
+        packageDetails += (element.packageName)
+        if (index < state.indivisualTests.length - 1)
+        {
+          packageDetails += ' - '
+        }
+      });
+    } else if (state.packageName === "Combo STD Checks") {
+      state.indivisualCombos.forEach((element, index) => {
+        price += parseFloat(element.price.substr(1));
+        packageDetails += (element.packageName)
+        if (index < state.indivisualCombos.length - 1)
+        {
+          packageDetails += ' - '
+        }
+      });
+    } else {
+      return;
+    }
+
+    setState((state) => ({
+      ...state,
+      packagePrice: price.toLocaleString("en-GB", { style: 'currency', currency: 'GBP' }),
+      packageName: `${state.packageName} (${packageDetails})`
+    }));
+  };
 
   const dataConfirmedChanged = (event) => {
     setState((state) => ({ ...state, dataConfirmed: event.target.checked }));
@@ -203,7 +235,6 @@ export default function ReviewForm() {
     }
   };
 
-  
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom className={classes.pageTitle}>
@@ -211,21 +242,22 @@ export default function ReviewForm() {
       </Typography>
 
       <Fade down>
-      <div>
-        <Alert
-          severity="info"
-          style={{
-            marginBottom: "15px",
-            fontSize: "0.95rem",
-            lineHeight: "1.5rem",
-            textAlign: "justify",
-          }}
-        >
-          You can always change or cancel your appointment up-to 24 hours to your appointment with ease through your patient portal (only if you have entered your email address in the previous step)
-        </Alert>
-      </div>
+        <div>
+          <Alert
+            severity="info"
+            style={{
+              marginBottom: "15px",
+              fontSize: "0.95rem",
+              lineHeight: "1.5rem",
+              textAlign: "justify",
+            }}
+          >
+            You can always change or cancel your appointment up-to 24 hours to
+            your appointment with ease through your patient portal (only if you
+            have entered your email address in the previous step)
+          </Alert>
+        </div>
       </Fade>
-
 
       <Grid
         container
@@ -280,15 +312,19 @@ export default function ReviewForm() {
                     Up-to 30 minutes
                   </li>
 
-                  <li className={classes.li}>
-                    <span className={classes.infoTitleTime}>
+                  <li className={classes.li}  style={{lineHeight:"2rem"}}>
+                    <span className={classes.infoTitleTime} >
                       <FontAwesomeIcon
                         icon={faNotesMedical}
                         className={classes.icon}
+                        style={{marginTop:"5px"}}
                       />
                       Package:
                     </span>
-                    <span className={classes.infoData}> {state.packageName || '-'} </span>
+                    <span className={classes.infoData} style={{fontWeight:"600"}}>
+                      {" "}
+                      {state.packageName || "-"}{" "}
+                    </span>
                   </li>
 
                   <li className={classes.li}>
@@ -297,9 +333,12 @@ export default function ReviewForm() {
                         icon={faPoundSign}
                         className={classes.icon}
                       />
-                      Price:
+                      Estimated Price:
                     </span>
-                    <span className={classes.infoData}> {state.packagePrice || '-'} </span>
+                    <span className={classes.infoData}>
+                      {" "}
+                      {state.packagePrice || "-"}{" "}
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -320,16 +359,25 @@ export default function ReviewForm() {
                   </li>
                   <li className={classes.li}>
                     <span className={classes.infoTitle}>Telephone</span>
-                    <span className={classes.infoData}> {state.phone || '-'} </span>
+                    <span className={classes.infoData}>
+                      {" "}
+                      {state.phone || "-"}{" "}
+                    </span>
                   </li>
                   <li className={classes.li}>
                     <span className={classes.infoTitle}>Email Address</span>
-                    <span className={classes.infoData}> {state.email || '-'} </span>
+                    <span className={classes.infoData}>
+                      {" "}
+                      {state.email || "-"}{" "}
+                    </span>
                   </li>
 
                   <li className={classes.li}>
                     <span className={classes.infoTitle}>Notes</span>
-                    <span className={classes.infoData}> {state.notes || '-'} </span>
+                    <span className={classes.infoData}>
+                      {" "}
+                      {state.notes || "-"}{" "}
+                    </span>
                   </li>
                 </ul>
               </div>

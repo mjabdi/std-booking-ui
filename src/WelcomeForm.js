@@ -314,6 +314,18 @@ const getStartedClicked = (event) => {
               isMobile ? classes.textContentMobile : classes.textContent
             }
           >
+            -&nbsp; Absolute discretion.
+
+          </p>
+
+
+
+        
+          <p
+            className={
+              isMobile ? classes.textContentMobile : classes.textContent
+            }
+          >
             -&nbsp; Highly Experienced Doctors.
           </p>
 

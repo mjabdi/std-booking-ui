@@ -25,8 +25,19 @@ export default function ValidateStep (state,setState, step)
       // validate Package
       if (!state.packageName || state.packageName.length < 1)
       {
-        return false
+        error = true;
       }
+
+      if (state.packageName === "Indivisual Tests" && state.indivisualTests.length === 0)
+      {
+        error = true;
+      }
+
+      if (state.packageName === "Combo STD Checks" && state.indivisualCombos.length === 0)
+      {
+        error = true;
+      }
+
     }
     
     else if (step === 3){
