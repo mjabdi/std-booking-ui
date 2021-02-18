@@ -32,6 +32,8 @@ import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import BookService from "./services/BookService";
 import Alert from "@material-ui/lab/Alert";
 
+import {Packages, Packages2} from './PackageForm'
+
 const useStyles = makeStyles((theme) => ({
   box: {
     backgroundColor: "#fff",
@@ -193,8 +195,41 @@ export default function ReviewForm() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    calculatePrice();
+    if (state.urlPackageName)
+    {
+      calculatePackage()
+     
+    }else
+    {
+      calculatePrice();
+    }
+  
   }, []);
+
+  const calculatePackage = () =>
+  {
+    Packages.forEach(item => {
+      if (item.title.toLowerCase() === state.urlPackageName)
+      {
+        setState((state) => ({
+          ...state,
+          packagePrice:  item.malePrice === item.femalePrice ? `${item.malePrice}`  :  `${item.malePrice}(Male) - ${item.femalePrice}(Female)`,
+          packageName: item.packageName
+        }));
+      }
+    })
+
+    Packages2.forEach(item => {
+      if (item.title.toLowerCase() === state.urlPackageName)
+      {
+        setState((state) => ({
+          ...state,
+          packagePrice: item.price,
+          packageName: item.packageName
+        }));
+      }
+    })
+  }
 
   const calculatePrice = () => {
     let price = 0;

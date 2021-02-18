@@ -8,15 +8,11 @@ import BookService from './services/BookService';
 import theme from "./theme";
 import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
 
-const getPathId = () =>
+const getPackageName = () =>
 {
-  let urlElements = window.location.pathname.split('/');
-  if (urlElements.length === 2)
-  {
-    if (urlElements[1].startsWith('id'))
-     return urlElements[1].substr(2);
-  }
-  return null;  
+  const packageName = window.location.search.toLowerCase().substr(3)
+  console.log(packageName)
+  return packageName
 }
 
 function App() {
@@ -24,33 +20,11 @@ function App() {
 
   useEffect(() => {
     
-    const bookingId = getPathId()
-   
-    if (bookingId)
-    {
-      BookService.getBookingById(bookingId).then(res => {
-        if (res.data)
-        {
-          const booking = res.data
-          setState(state => ({...state, firstname : booking.forename }))
-          setState(state => ({...state, lastname : booking.surname }))
-          setState(state => ({...state, email : booking.email }))
-          setState(state => ({...state, retypeEmail : booking.email }))
-          setState(state => ({...state, gender : booking.gender }))
-          setState(state => ({...state, title : booking.title }))
-          setState(state => ({...state, birthDate : booking.birthDate }))
-          setState(state => ({...state, passportNumber : booking.passportNumber || '' }))
-          setState(state => ({...state, passportNumber2 : booking.passportNumber2 || '' }))
-          setState(state => ({...state, phone : booking.phone }))
-          setState(state => ({...state, postCode : booking.postCode }))
-          setState(state => ({...state, address : booking.address }))
-
-        }
-      }).catch(err => {
-        console.error(err)
-      })
-      
-    }
+   const packageName = getPackageName()
+   if (packageName && packageName.length > 0)
+   {
+     setState(state => ({...state, urlPackageName: packageName}))
+   }
 
   }, [])
 
@@ -61,9 +35,9 @@ function App() {
 
       <div className="App">
 
-        {!state.getStarted && ( <WelcomeForm/> )}
-        {state.getStarted && !state.agreed && ( <AgreementForm/>  )}
-        {state.getStarted && state.agreed  && ( <Checkout/>  )}
+        {!state.getStarted && !state.urlPackageName && ( <WelcomeForm/> )}
+        {state.getStarted && !state.agreed && !state.urlPackageName && ( <AgreementForm/>  )}
+        {((state.getStarted && state.agreed) || state.urlPackageName )  && ( <Checkout/>  )}
 
        
       </div>

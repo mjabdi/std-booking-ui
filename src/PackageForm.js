@@ -8,9 +8,12 @@ import Checkbox from "@material-ui/core/Checkbox";
 import GlobalState from "./GlobalState";
 import PersonsBox from "./PersonsBox";
 import AntiBodyComponent from "./AntiBodyComponent";
-import { FormControl, FormLabel, Radio, RadioGroup } from "@material-ui/core";
+import { Button, DialogActions, FormControl, FormLabel, Icon, Radio, RadioGroup } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Checkout from "./checkout";
+import { faMars, faVenus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Dialog from '@material-ui/core/Dialog';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -26,11 +29,12 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid",
     borderRadius: "4px",
     width: "100%",
-    padding: "5px",
+    padding: "20px 5px",
+    
     transition: "all 0.4s ease-in-out",
     boxShadow: " 0 0 10px rgb(0 0 0 / 20%)",
     [theme.breakpoints.up("md")]: {
-      minHeight: "130px",
+      minHeight: "170px",
     },
   },
 
@@ -40,46 +44,69 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Packages = [
+ export const Packages = [
   {
-    packageName: "Bronze",
+    packageName: "Sexual Health Clinic - Bronze",
+    title: "Bronze",
     malePrice: "£250.00",
     femalePrice: "£250.00",
     color: "#aaa",
+    descriptions: [
+      "Chlamydia and Gonorrhoea - Urine Sample",
+      "Syphilis, HIV I/II Antibodies - Blood Sample",
+    ]
   },
   {
-    packageName: "Silver",
+    packageName: "Sexual Health Clinic - Silver",
+    title: "Silver",
     malePrice: "£325.00",
     femalePrice: "£375.00",
     color: "#00a1c5",
+    descriptions: [
+      "Chlamydia, Gonorrhoea, Mycoplasma, Trichomoniasis, Ureaplasma, Gardnerella - Urine Sample",
+      "Herpes I&II, Syphilis, HIV I/II Antibodies - Blood Sample",
+      "Additional Bacterial Swab for Women; screening for Candida and Bacterial Vaginosis"
+    ]
   },
   {
-    packageName: "Gold",
+    packageName: "Sexual Health Clinic - Gold",
+    title: "Gold",
     malePrice: "£475.00",
     femalePrice: "£490.00",
     color: "#ff7a11",
+    descriptions: [
+      "Chlamydia, Gonorrhoea, Mycoplasma, Trichomoniasis, Ureaplasma, Gardnerella, Herpes I&II - Urine Sample",
+      "Syphilis, HIV I/II Antibodies, Hepatitis B & C - Blood Sample",
+      "Additional Swab for Women; screening for Candida, BV, Fungi, Trichomoniasis, Ureaplasma and Gardnerella"
+    ]
   },
   {
-    packageName: "Platinium",
+    packageName: "Sexual Health Clinic - Platinium",
+    title: "Platinium",
     malePrice: "£625.00",
     femalePrice: "£665.00",
     color: "#333",
+    descriptions: [
+      "The same STD screenings are included in the Platinum Screen as our Gold Package, however with an Human Papilloma Virus (HPV) Swab including 16, 18 and High Risk types."
+    ]
   },
 ];
 
-const Packages2 = [
+ export const Packages2 = [
   {
     packageName: "BLOOD SAMPLE AND URINE",
+    title: "BLOOD_SAMPLE_AND_URINE",
     desc: "HIV I&II, Syphilis IgM/IgG, Chlamydia, Gonorrhoea",
     price: "£350.00",
     color: "#3fc566",
   },
   {
     packageName: "BLOOD SAMPLE AND URINE OR SWAB",
+    title: "BLOOD_SAMPLE_AND_URINE_OR_SWAB",
     desc:
       "HIV I&II, Hepatitis B, Hepatitis C Antibodies, Hepatitis C Antigen, Syphilis IgM/IgG -",
     price: "£450.00",
-    color: "#3fc566",
+    color: "#94b8dd",
   },
 ];
 
@@ -170,13 +197,13 @@ export default function PackageForm() {
     window.scrollTo(0, 0);
   }, []);
 
-  const packageClicked = (_packageName, gender, price) => {
-    setPackageName(`${_packageName} (${gender})`);
+  const packageClicked = (_packageName, price) => {
+    setPackageName(`${_packageName}`);
     setPackagePrice({ ...state, packagePrice: price });
 
     setState((state) => ({
       ...state,
-      packageName: `${_packageName} (${gender})`,
+      packageName: `${_packageName}`,
       packagePrice: price,
     }));
   };
@@ -244,6 +271,19 @@ export default function PackageForm() {
     }
   };
 
+  const [infoItem, setInfoItem] = React.useState(null)
+  const [showInfoDialog, setShowInfoDialog] = React.useState(false)
+
+  const handleCloseDialog = () =>
+  {
+    setShowInfoDialog(false)
+  }
+
+  const showMoreInfoDialog = (item) => {
+    setInfoItem(item)
+    setShowInfoDialog(true)
+  }
+
   return (
     <React.Fragment>
       <Typography className={classes.pageTitle} variant="h6" gutterBottom>
@@ -255,6 +295,7 @@ export default function PackageForm() {
           border: "1px solid #ddd",
           padding: "20px",
           borderRadius: "8px",
+          boxShadow: "0px 0px 20px #dadada",
         }}
       >
         <div
@@ -276,7 +317,7 @@ export default function PackageForm() {
           style={{ marginTop: "10px" }}
         >
           {Packages.map((item) => (
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6}>
               <div
                 className={classes.packageBox}
                 style={
@@ -291,89 +332,91 @@ export default function PackageForm() {
               >
                 <Grid
                   container
-                  direction="column"
+                  direction="row"
                   justify="center"
                   alignItems="center"
+                  spacing={1}
                 >
-                  <Grid item>
-                    <div style={{ fontWeight: "600", fontSize: "1.2rem" }}>
-                      {item.packageName}
+                  <Grid item xs={12}>
+                    <div style={{ fontWeight: "500", fontSize: "1.8rem" }}>
+                      {item.title}
                     </div>
                   </Grid>
 
-                  <Grid item>
+                  <Grid item xs={12}>
                     <div style={{ marginTop: "10px" }}>
-                      <FormControlLabel
-                        control={
-                          packageName.startsWith(item.packageName) ? (
-                            <WhiteRadio
-                              color="secondary"
-                              checked={
-                                packageName === `${item.packageName} (male)`
-                              }
-                              onClick={() =>
-                                packageClicked(
-                                  item.packageName,
-                                  "male",
-                                  item.malePrice
-                                )
-                              }
-                            />
-                          ) : (
-                            <Radio
-                              color="secondary"
-                              checked={
-                                packageName === `${item.packageName} (male)`
-                              }
-                              onClick={() =>
-                                packageClicked(
-                                  item.packageName,
-                                  "male",
-                                  item.malePrice
-                                )
-                              }
-                            />
-                          )
-                        }
-                        label={`Male - ${item.malePrice}`}
-                      />
+                      {item.malePrice === item.femalePrice && (
+                        <div
+                          style={{
+                            fontSize: "2rem",
+                            marginTop: "35px",
+                            marginBottom: "45px",
+                            fontWeight: "600",
+                          }}
+                        >
+                          {item.malePrice}
+                        </div>
+                      )}
+
+                      {item.malePrice !== item.femalePrice && (
+                        <React.Fragment>
+                          <div
+                            style={{
+                              fontSize: "2rem",
+                              fontWeight: "600",
+                              marginTop: "10px",
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              icon={faMars}
+                              style={{ fontSize: "2rem" }}
+                              transform="left-4 down-1"
+                            />{" "}
+                            {item.malePrice}
+                          </div>
+                          <div
+                            style={{
+                              fontSize: "2rem",
+                              fontWeight: "600",
+                              marginTop: "10px",
+                              marginBottom: "20px",
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              icon={faVenus}
+                              style={{ fontSize: "2rem" }}
+                              transform="left-4 down-1"
+                            />{" "}
+                            {item.femalePrice}
+                          </div>
+                        </React.Fragment>
+                      )}
                     </div>
-                    <div style={{ marginTop: "10px" }}>
-                      <FormControlLabel
-                        control={
-                          packageName.startsWith(item.packageName) ? (
-                            <WhiteRadio
-                              color="secondary"
-                              checked={
-                                packageName === `${item.packageName} (female)`
-                              }
-                              onClick={() =>
-                                packageClicked(
-                                  item.packageName,
-                                  "female",
-                                  item.femalePrice
-                                )
-                              }
-                            />
-                          ) : (
-                            <Radio
-                              color="secondary"
-                              checked={
-                                packageName === `${item.packageName} (female)`
-                              }
-                              onClick={() =>
-                                packageClicked(
-                                  item.packageName,
-                                  "female",
-                                  item.femalePrice
-                                )
-                              }
-                            />
-                          )
-                        }
-                        label={`Female - ${item.femalePrice}`}
-                      />
-                    </div>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      onClick={() => showMoreInfoDialog(item)}
+                    >
+                      More Info
+                    </Button>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      onClick={() =>
+                        packageClicked(
+                          item.packageName,
+                          `${item.malePrice}(Male) - ${item.femalePrice}(Female)`
+                        )
+                      }
+                    >
+                      Select
+                    </Button>
                   </Grid>
                 </Grid>
               </div>
@@ -407,110 +450,120 @@ export default function PackageForm() {
             of your results with our GP and a <b>free prescription</b> for
             whatever medication which you may need.
           </div>
-
         </Grid>
       </div>
 
       <div
         style={{
-          textAlign: "center",
-          fontSize: "1.2rem",
-          fontWeight: "400",
-          color: "#555",
-          marginBottom: "20px",
-          marginTop: "20px",
+          border: "1px solid #ddd",
+          padding: "20px",
+          borderRadius: "8px",
+          marginTop: "10px",
+          boxShadow: "0px 0px 20px #dadada",
         }}
       >
-        FAST STD SCREENS RESULTS - IN 4 WORKING HOURS
-      </div>
-      <Grid
-        container
-        spacing={1}
-        alignItems="baseline"
-        style={{ marginTop: "10px" }}
-      >
-        {Packages2.map((item) => (
-          <Grid item xs={12} md={6}>
-            <div
-              className={classes.packageBox}
-              style={
-                packageName === item.packageName
-                  ? {
-                      borderColor: item.color,
-                      color: "#fff",
-                      backgroundColor: item.color,
-                    }
-                  : { borderColor: item.color, color: item.color }
-              }
-            >
-              <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
+        <div
+          style={{
+            textAlign: "center",
+            fontSize: "1.2rem",
+            fontWeight: "500",
+            color: "#ff7a11",
+            marginBottom: "20px",
+            marginTop: "20px",
+          }}
+        >
+          FAST STD SCREENS RESULTS - IN 4 WORKING HOURS
+        </div>
+        <Grid
+          container
+          spacing={1}
+          alignItems="baseline"
+          style={{ marginTop: "10px" }}
+        >
+          {Packages2.map((item) => (
+            <Grid item xs={12} md={6}>
+              <div
+                className={classes.packageBox}
+                style={
+                  packageName === item.packageName
+                    ? {
+                        borderColor: item.color,
+                        color: "#fff",
+                        backgroundColor: item.color,
+                      }
+                    : { borderColor: item.color, color: item.color }
+                }
               >
-                <Grid item>
-                  <div
-                    style={{
-                      fontWeight: "600",
-                      fontSize: "1rem",
-                      color:
-                        packageName === item.packageName ? "#fff" : "#00a1c5",
-                      marginTop: "5px",
-                    }}
-                  >
-                    {item.packageName}
-                  </div>
-                </Grid>
+                <Grid
+                  container
+                  direction="column"
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Grid item>
+                    <div
+                      style={{
+                        fontWeight: "600",
+                        fontSize: "1rem",
+                        color:
+                          packageName === item.packageName ? "#fff" : "#00a1c5",
+                        marginTop: "5px",
+                      }}
+                    >
+                      {item.packageName}
+                    </div>
+                  </Grid>
 
-                <Grid item>
-                  <div
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "0.9rem",
-                      color: packageName === item.packageName ? "#fff" : "#555",
-                      marginTop: "10px",
-                    }}
-                  >
-                    {item.desc}
-                  </div>
-                </Grid>
+                  <Grid item>
+                    <div
+                      style={{
+                        fontWeight: "400",
+                        fontSize: "0.9rem",
+                        color:
+                          packageName === item.packageName ? "#fff" : "#555",
+                        marginTop: "10px",
+                      }}
+                    >
+                      {item.desc}
+                    </div>
+                  </Grid>
 
-                <Grid item>
-                  <div style={{ marginTop: "10px" }}>
-                    <FormControlLabel
-                      control={
-                        packageName === item.packageName ? (
-                          <WhiteRadio
-                            color="secondary"
-                            checked={packageName === `${item.packageName}`}
-                            onClick={() =>
-                              package2Clicked(item.packageName, item.price)
-                            }
-                          />
-                        ) : (
-                          <Radio
-                            color="secondary"
-                            checked={packageName === `${item.packageName}`}
-                            onClick={() =>
-                              package2Clicked(item.packageName, item.price)
-                            }
-                          />
-                        )
-                      }
-                      label={
-                        <span
-                          style={{ fontSize: "1.5rem", fontWeight: "500" }}
-                        >{`${item.price}`}</span>
-                      }
-                    />
-                  </div>
+                  <Grid item>
+                    <div style={{ marginTop: "10px" }}>
+                      <FormControlLabel
+                        control={
+                          packageName === item.packageName ? (
+                            <WhiteRadio
+                              color="secondary"
+                              checked={packageName === `${item.packageName}`}
+                              onClick={() =>
+                                package2Clicked(item.packageName, item.price)
+                              }
+                            />
+                          ) : (
+                            <Radio
+                              color="secondary"
+                              checked={packageName === `${item.packageName}`}
+                              onClick={() =>
+                                package2Clicked(item.packageName, item.price)
+                              }
+                            />
+                          )
+                        }
+                        label={
+                          <span
+                            style={{ fontSize: "1.5rem", fontWeight: "500" }}
+                          >{`${item.price}`}</span>
+                        }
+                      />
+                    </div>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </div>
-          </Grid>
-        ))}
-      </Grid>
+              </div>
+            </Grid>
+          ))}
+        </Grid>
+      </div>
 
       <div
         style={{
@@ -724,12 +777,73 @@ export default function PackageForm() {
           </Grid>
         ))}
 
-        
-                <div style={{backgroundColor:"#a0a0a0", color: "#fff", borderRadius:"4px", padding:"10px", fontSize:"1rem", marginTop:"20px", marginBottom:"10px", fontWeight:"400"}}>
-                    A blood draw fee of <span style={{backgroundColor:"#f68529", padding:"1px 6px", fontWeight:"500", fontSize:"1.2rem"}}>£50</span> is payable for STI blood tests, urine tests and swabs carry no surcharge.
-                </div>
+        <div
+          style={{
+            backgroundColor: "#a0a0a0",
+            color: "#fff",
+            borderRadius: "4px",
+            padding: "10px",
+            fontSize: "1rem",
+            marginTop: "20px",
+            marginBottom: "10px",
+            fontWeight: "400",
+          }}
+        >
+          A blood draw fee of{" "}
+          <span
+            style={{
+              backgroundColor: "#f68529",
+              padding: "1px 6px",
+              fontWeight: "500",
+              fontSize: "1.2rem",
+            }}
+          >
+            £50
+          </span>{" "}
+          is payable for STI blood tests, urine tests and swabs carry no
+          surcharge.
+        </div>
       </Grid>
 
+      {infoItem && (
+        <Dialog onClose={handleCloseDialog} open={showInfoDialog}>
+          <div style={{padding:"20px", backgroundColor:infoItem.color, color:"#fff"}}>
+              <div style={{fontSize:"1.2rem", fontWeight:"500"}}>
+                {infoItem.title} Screen testing for:
+              </div>
+
+            <div>
+
+            <ul>
+              { infoItem.descriptions.map(desc => (
+
+                <li style={{fontSize:"1.1rem", lineHeight:"2rem", fontWeight:"400" , marginTop:"20px"}}>
+                  {desc}
+                </li>
+
+              )
+
+              )
+              
+              }
+            </ul>
+
+
+            </div>
+
+
+
+          </div>
+
+
+          <DialogActions>
+          <Button onClick={handleCloseDialog} color="default">
+            Close
+          </Button>
+        </DialogActions>
+        
+        </Dialog>
+      )}
     </React.Fragment>
   );
 }

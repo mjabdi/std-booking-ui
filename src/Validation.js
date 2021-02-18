@@ -1,6 +1,6 @@
 import * as EmailValidator from 'email-validator';
 
-export default function ValidateStep (state,setState, step) 
+export default function ValidateStep (state,setState, step, hasPackage) 
   {
     var error = false;
 
@@ -21,7 +21,7 @@ export default function ValidateStep (state,setState, step)
         setState(state => ({...state, bookingTimeError : true}));
         error = true;
       }
-    }  else if (step === 2){
+    }  else if (step === 2 && !hasPackage){
       // validate Package
       if (!state.packageName || state.packageName.length < 1)
       {
@@ -40,7 +40,7 @@ export default function ValidateStep (state,setState, step)
 
     }
     
-    else if (step === 3){
+    else if ((step === 3 && !hasPackage) || (step === 2 && hasPackage) ){
       ///validate Basic Info
       if (!state.fullname || state.fullname.trim().length < 1)
       {

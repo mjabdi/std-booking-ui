@@ -140,31 +140,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = [
-  "Appoinment Date",
-  "Appoinment Time",
-  "Package",
-  "Basic Info",
-  "Review",
-];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <DateForm />;
-    case 1:
-      return <TimeForm />;
-    case 2:
-      return <PackageForm />;
-
-    case 3:
-      return <InformationForm />;
-    case 4:
-      return <ReviewForm />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
 
 export default function Checkout() {
   const [state, setState] = React.useContext(GlobalState);
@@ -197,6 +173,56 @@ export default function Checkout() {
       }
     }
   }, [openFAQ]);
+
+
+  const steps = state.urlPackageName ?  
+  [
+    "Appoinment Date",
+    "Appoinment Time",
+    "Basic Info",
+    "Review",
+  ]
+  :  [
+    "Appoinment Date",
+    "Appoinment Time",
+    "Package",
+    "Basic Info",
+    "Review",
+  ];
+  
+  function getStepContent(step) {
+    if (state.urlPackageName)
+    {
+      switch (step) {
+        case 0:
+          return <DateForm />;
+        case 1:
+          return <TimeForm />;
+        case 2:
+          return <InformationForm />;
+        case 3:
+          return <ReviewForm />;
+        default:
+          throw new Error("Unknown step");
+      }
+    }else
+    {
+      switch (step) {
+        case 0:
+          return <DateForm />;
+        case 1:
+          return <TimeForm />;
+        case 2:
+          return <PackageForm />;
+        case 3:
+          return <InformationForm />;
+        case 4:
+          return <ReviewForm />;
+        default:
+          throw new Error("Unknown step");
+      }
+    }
+  }
 
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
@@ -248,7 +274,7 @@ export default function Checkout() {
           phone: state.phone || '',
           notes: state.notes || '',
           packageName : state.packageName,
-          estimatedPrice: parseFloat(state.packagePrice.substr(1))
+          estimatedPrice: state.packagePrice
         };
 
         const promise = BookService.bookAppointment({
@@ -287,7 +313,7 @@ export default function Checkout() {
   };
 
   const handleNext = () => {
-    if (state.activeStep === 4) {
+    if (state.activeStep === steps.length - 1) {
       // if (!state.dataConfirmed)
       // {
       //   setState(state => ({...state, dataConfirmedError : true }));
@@ -296,7 +322,7 @@ export default function Checkout() {
 
       setSubmiting(true);
       submitForm();
-    } else if (ValidateStep(state, setState, state.activeStep)) {
+    } else if (ValidateStep(state, setState, state.activeStep, state.urlPackageName ? true : false)) {
       setActiveStep(state.activeStep + 1);
     }
   };
