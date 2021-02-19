@@ -8,12 +8,20 @@ import Checkbox from "@material-ui/core/Checkbox";
 import GlobalState from "./GlobalState";
 import PersonsBox from "./PersonsBox";
 import AntiBodyComponent from "./AntiBodyComponent";
-import { Button, DialogActions, FormControl, FormLabel, Icon, Radio, RadioGroup } from "@material-ui/core";
+import {
+  Button,
+  DialogActions,
+  FormControl,
+  FormLabel,
+  Icon,
+  Radio,
+  RadioGroup,
+} from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Checkout from "./checkout";
-import { faMars, faVenus } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Dialog from '@material-ui/core/Dialog';
+import { faMars, faVenus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Dialog from "@material-ui/core/Dialog";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -30,12 +38,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4px",
     width: "100%",
     padding: "20px 5px",
-    
+
     transition: "all 0.4s ease-in-out",
     boxShadow: " 0 0 10px rgb(0 0 0 / 20%)",
     [theme.breakpoints.up("md")]: {
       minHeight: "170px",
     },
+
+    cursor: "pointer"
   },
 
   pageTitle: {
@@ -44,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- export const Packages = [
+export const Packages = [
   {
     packageName: "Sexual Health Clinic - Bronze",
     title: "Bronze",
@@ -54,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     descriptions: [
       "Chlamydia and Gonorrhoea - Urine Sample",
       "Syphilis, HIV I/II Antibodies - Blood Sample",
-    ]
+    ],
   },
   {
     packageName: "Sexual Health Clinic - Silver",
@@ -65,8 +75,8 @@ const useStyles = makeStyles((theme) => ({
     descriptions: [
       "Chlamydia, Gonorrhoea, Mycoplasma, Trichomoniasis, Ureaplasma, Gardnerella - Urine Sample",
       "Herpes I&II, Syphilis, HIV I/II Antibodies - Blood Sample",
-      "Additional Bacterial Swab for Women; screening for Candida and Bacterial Vaginosis"
-    ]
+      "Additional Bacterial Swab for Women; screening for Candida and Bacterial Vaginosis",
+    ],
   },
   {
     packageName: "Sexual Health Clinic - Gold",
@@ -77,8 +87,8 @@ const useStyles = makeStyles((theme) => ({
     descriptions: [
       "Chlamydia, Gonorrhoea, Mycoplasma, Trichomoniasis, Ureaplasma, Gardnerella, Herpes I&II - Urine Sample",
       "Syphilis, HIV I/II Antibodies, Hepatitis B & C - Blood Sample",
-      "Additional Swab for Women; screening for Candida, BV, Fungi, Trichomoniasis, Ureaplasma and Gardnerella"
-    ]
+      "Additional Swab for Women; screening for Candida, BV, Fungi, Trichomoniasis, Ureaplasma and Gardnerella",
+    ],
   },
   {
     packageName: "Sexual Health Clinic - Platinium",
@@ -87,12 +97,12 @@ const useStyles = makeStyles((theme) => ({
     femalePrice: "£665.00",
     color: "#333",
     descriptions: [
-      "The same STD screenings are included in the Platinum Screen as our Gold Package, however with an Human Papilloma Virus (HPV) Swab including 16, 18 and High Risk types."
-    ]
+      "The same STD screenings are included in the Platinum Screen as our Gold Package, however with an Human Papilloma Virus (HPV) Swab including 16, 18 and High Risk types.",
+    ],
   },
 ];
 
- export const Packages2 = [
+export const Packages2 = [
   {
     packageName: "BLOOD SAMPLE AND URINE",
     title: "BLOOD_SAMPLE_AND_URINE",
@@ -271,18 +281,17 @@ export default function PackageForm() {
     }
   };
 
-  const [infoItem, setInfoItem] = React.useState(null)
-  const [showInfoDialog, setShowInfoDialog] = React.useState(false)
+  const [infoItem, setInfoItem] = React.useState(null);
+  const [showInfoDialog, setShowInfoDialog] = React.useState(false);
 
-  const handleCloseDialog = () =>
-  {
-    setShowInfoDialog(false)
-  }
+  const handleCloseDialog = () => {
+    setShowInfoDialog(false);
+  };
 
   const showMoreInfoDialog = (item) => {
-    setInfoItem(item)
-    setShowInfoDialog(true)
-  }
+    setInfoItem(item);
+    setShowInfoDialog(true);
+  };
 
   return (
     <React.Fragment>
@@ -329,6 +338,7 @@ export default function PackageForm() {
                       }
                     : { borderColor: item.color, color: item.color }
                 }
+
               >
                 <Grid
                   container
@@ -337,6 +347,18 @@ export default function PackageForm() {
                   alignItems="center"
                   spacing={1}
                 >
+
+                <div 
+                onClick={() =>
+                  packageClicked(
+                    item.packageName,
+                    `${item.malePrice}(Male) - ${item.femalePrice}(Female)`
+                  )
+                 
+                }
+                style={{width:"97%"}}
+                >
+
                   <Grid item xs={12}>
                     <div style={{ fontWeight: "500", fontSize: "1.8rem" }}>
                       {item.title}
@@ -394,17 +416,7 @@ export default function PackageForm() {
                     </div>
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      onClick={() => showMoreInfoDialog(item)}
-                    >
-                      More Info
-                    </Button>
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={12}>
                     <Button
                       fullWidth
                       variant="contained"
@@ -416,6 +428,18 @@ export default function PackageForm() {
                       }
                     >
                       Select
+                    </Button>
+                  </Grid>
+
+                  </div>
+
+                  <Grid item xs={12} md={12} style={{ marginTop: "10px" }}>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      onClick={() => showMoreInfoDialog(item)}
+                    >
+                      More Info
                     </Button>
                   </Grid>
                 </Grid>
@@ -492,6 +516,9 @@ export default function PackageForm() {
                         backgroundColor: item.color,
                       }
                     : { borderColor: item.color, color: item.color }
+                }
+                onClick={() =>
+                  package2Clicked(item.packageName, item.price)
                 }
               >
                 <Grid
@@ -618,6 +645,16 @@ export default function PackageForm() {
                     }
                   : { borderColor: "#ff7a11", color: "#ff7a11" }
               }
+
+              onClick={(event) =>
+                indivisualClicked(
+                  state.indivisualTests.findIndex(
+                    (e) => e.packageName === item.packageName
+                  ) < 0,
+                  item.packageName,
+                  item.price
+                )
+              }
             >
               <Grid
                 container
@@ -716,6 +753,16 @@ export default function PackageForm() {
                     }
                   : { borderColor: "#ff7a11", color: "#ff7a11" }
               }
+
+              onClick={(event) =>
+                indivisualComboClicked(
+                  state.indivisualCombos.findIndex(
+                    (e) => e.packageName === item.packageName
+                  ) < 0,
+                  item.packageName,
+                  item.price
+                )
+              }
             >
               <Grid
                 container
@@ -807,41 +854,40 @@ export default function PackageForm() {
 
       {infoItem && (
         <Dialog onClose={handleCloseDialog} open={showInfoDialog}>
-          <div style={{padding:"20px", backgroundColor:infoItem.color, color:"#fff"}}>
-              <div style={{fontSize:"1.2rem", fontWeight:"500"}}>
-                {infoItem.title} Screen testing for:
-              </div>
-
-            <div>
-
-            <ul>
-              { infoItem.descriptions.map(desc => (
-
-                <li style={{fontSize:"1.1rem", lineHeight:"2rem", fontWeight:"400" , marginTop:"20px"}}>
-                  {desc}
-                </li>
-
-              )
-
-              )
-              
-              }
-            </ul>
-
-
+          <div
+            style={{
+              padding: "20px",
+              backgroundColor: infoItem.color,
+              color: "#fff",
+            }}
+          >
+            <div style={{ fontSize: "1.2rem", fontWeight: "500" }}>
+              {infoItem.title} Screen testing for:
             </div>
 
-
-
+            <div>
+              <ul>
+                {infoItem.descriptions.map((desc) => (
+                  <li
+                    style={{
+                      fontSize: "1.1rem",
+                      lineHeight: "2rem",
+                      fontWeight: "400",
+                      marginTop: "20px",
+                    }}
+                  >
+                    {desc}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-
           <DialogActions>
-          <Button onClick={handleCloseDialog} color="default">
-            Close
-          </Button>
-        </DialogActions>
-        
+            <Button onClick={handleCloseDialog} color="default">
+              Close
+            </Button>
+          </DialogActions>
         </Dialog>
       )}
     </React.Fragment>
