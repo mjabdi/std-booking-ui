@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
       minHeight: "170px",
     },
 
-    cursor: "pointer"
+    cursor: "pointer",
   },
 
   pageTitle: {
@@ -124,58 +124,58 @@ const Individuals = [
   {
     packageName: "HIV TESTING",
     desc: "HIV I & II",
-    price: "£46.00",
+    price: "£49.00",
   },
   {
     packageName: "CHLAMYDIA TESTING",
-    price: "£64.00",
+    price: "£69.00",
   },
   {
-    packageName: "SYPHILIS TESTING",
-    price: "£52.00",
+    packageName: "SYPHILIS BLOOD TESTING",
+    price: "£55.00",
   },
   {
     packageName: "HERPES TESTING",
     desc: "Herpes I & II",
-    price: "£75.00",
+    price: "£92.50",
   },
   {
     packageName: "GONORRHOEA TESTING",
-    price: "£64.00",
+    price: "£69.00",
   },
   {
     packageName: "HEPATITIS A PROFILE TESTING",
     desc: "A",
-    price: "£70.00",
+    price: "£87.00",
   },
   {
     packageName: "HEPATITIS B PROFILE TESTING",
     desc: "B",
-    price: "£110.00",
+    price: "£109.50",
   },
   {
     packageName: "HEPATITIS C ANTIBODIES TESTING",
     desc: "C",
-    price: "£85.00",
+    price: "£89.00",
   },
   {
     packageName: "HPV TESTING",
-    price: "£118.00",
+    price: "£120.00",
   },
   {
     packageName: "BACTERIAL SWAB TESTING",
-    price: "£50.00",
+    price: "£68.50",
   },
 ];
 
 const IndividualsCombo = [
   {
     packageName: "CHLAMYDIA, GONORRHOEA AND TRICHOMONAS",
-    price: "£94.00",
+    price: "£114.00",
   },
   {
     packageName: "HIV I & II WITH SYPHILIS",
-    price: "£170.00",
+    price: "£190.00",
   },
 ];
 
@@ -240,10 +240,13 @@ export default function PackageForm() {
       }));
 
       const _temp = state.indivisualTests;
-      _temp.push({
-        packageName: _packageName,
-        price: price,
-      });
+      if (_temp.findIndex((e) => e.packageName === _packageName) < 0) {
+        _temp.push({
+          packageName: _packageName,
+          price: price,
+        });
+      }
+
       setState((state) => ({ ...state, indivisualTests: _temp }));
     } else {
       setState((state) => ({
@@ -266,10 +269,12 @@ export default function PackageForm() {
       }));
 
       const _temp = state.indivisualCombos;
-      _temp.push({
-        packageName: _packageName,
-        price: price,
-      });
+      if (_temp.findIndex((e) => e.packageName === _packageName) < 0) {
+        _temp.push({
+          packageName: _packageName,
+          price: price,
+        });
+      }
       setState((state) => ({ ...state, indivisualCombos: _temp }));
     } else {
       setState((state) => ({
@@ -338,7 +343,6 @@ export default function PackageForm() {
                       }
                     : { borderColor: item.color, color: item.color }
                 }
-
               >
                 <Grid
                   container
@@ -347,90 +351,86 @@ export default function PackageForm() {
                   alignItems="center"
                   spacing={1}
                 >
+                  <div
+                    onClick={() =>
+                      packageClicked(
+                        item.packageName,
+                        `${item.malePrice}(Male) - ${item.femalePrice}(Female)`
+                      )
+                    }
+                    style={{ width: "97%" }}
+                  >
+                    <Grid item xs={12}>
+                      <div style={{ fontWeight: "500", fontSize: "1.8rem" }}>
+                        {item.title}
+                      </div>
+                    </Grid>
 
-                <div 
-                onClick={() =>
-                  packageClicked(
-                    item.packageName,
-                    `${item.malePrice}(Male) - ${item.femalePrice}(Female)`
-                  )
-                 
-                }
-                style={{width:"97%"}}
-                >
-
-                  <Grid item xs={12}>
-                    <div style={{ fontWeight: "500", fontSize: "1.8rem" }}>
-                      {item.title}
-                    </div>
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <div style={{ marginTop: "10px" }}>
-                      {item.malePrice === item.femalePrice && (
-                        <div
-                          style={{
-                            fontSize: "2rem",
-                            marginTop: "35px",
-                            marginBottom: "45px",
-                            fontWeight: "600",
-                          }}
-                        >
-                          {item.malePrice}
-                        </div>
-                      )}
-
-                      {item.malePrice !== item.femalePrice && (
-                        <React.Fragment>
+                    <Grid item xs={12}>
+                      <div style={{ marginTop: "10px" }}>
+                        {item.malePrice === item.femalePrice && (
                           <div
                             style={{
                               fontSize: "2rem",
+                              marginTop: "35px",
+                              marginBottom: "45px",
                               fontWeight: "600",
-                              marginTop: "10px",
                             }}
                           >
-                            <FontAwesomeIcon
-                              icon={faMars}
-                              style={{ fontSize: "2rem" }}
-                              transform="left-4 down-1"
-                            />{" "}
                             {item.malePrice}
                           </div>
-                          <div
-                            style={{
-                              fontSize: "2rem",
-                              fontWeight: "600",
-                              marginTop: "10px",
-                              marginBottom: "20px",
-                            }}
-                          >
-                            <FontAwesomeIcon
-                              icon={faVenus}
-                              style={{ fontSize: "2rem" }}
-                              transform="left-4 down-1"
-                            />{" "}
-                            {item.femalePrice}
-                          </div>
-                        </React.Fragment>
-                      )}
-                    </div>
-                  </Grid>
+                        )}
 
-                  <Grid item xs={12} md={12}>
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      onClick={() =>
-                        packageClicked(
-                          item.packageName,
-                          `${item.malePrice}(Male) - ${item.femalePrice}(Female)`
-                        )
-                      }
-                    >
-                      Select
-                    </Button>
-                  </Grid>
+                        {item.malePrice !== item.femalePrice && (
+                          <React.Fragment>
+                            <div
+                              style={{
+                                fontSize: "2rem",
+                                fontWeight: "600",
+                                marginTop: "10px",
+                              }}
+                            >
+                              <FontAwesomeIcon
+                                icon={faMars}
+                                style={{ fontSize: "2rem" }}
+                                transform="left-4 down-1"
+                              />{" "}
+                              {item.malePrice}
+                            </div>
+                            <div
+                              style={{
+                                fontSize: "2rem",
+                                fontWeight: "600",
+                                marginTop: "10px",
+                                marginBottom: "20px",
+                              }}
+                            >
+                              <FontAwesomeIcon
+                                icon={faVenus}
+                                style={{ fontSize: "2rem" }}
+                                transform="left-4 down-1"
+                              />{" "}
+                              {item.femalePrice}
+                            </div>
+                          </React.Fragment>
+                        )}
+                      </div>
+                    </Grid>
 
+                    <Grid item xs={12} md={12}>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        onClick={() =>
+                          packageClicked(
+                            item.packageName,
+                            `${item.malePrice}(Male) - ${item.femalePrice}(Female)`
+                          )
+                        }
+                      >
+                        Select
+                      </Button>
+                    </Grid>
                   </div>
 
                   <Grid item xs={12} md={12} style={{ marginTop: "10px" }}>
@@ -517,9 +517,7 @@ export default function PackageForm() {
                       }
                     : { borderColor: item.color, color: item.color }
                 }
-                onClick={() =>
-                  package2Clicked(item.packageName, item.price)
-                }
+                onClick={() => package2Clicked(item.packageName, item.price)}
               >
                 <Grid
                   container
@@ -645,7 +643,6 @@ export default function PackageForm() {
                     }
                   : { borderColor: "#ff7a11", color: "#ff7a11" }
               }
-
               onClick={(event) =>
                 indivisualClicked(
                   state.indivisualTests.findIndex(
@@ -753,7 +750,6 @@ export default function PackageForm() {
                     }
                   : { borderColor: "#ff7a11", color: "#ff7a11" }
               }
-
               onClick={(event) =>
                 indivisualComboClicked(
                   state.indivisualCombos.findIndex(
