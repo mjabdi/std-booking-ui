@@ -314,7 +314,7 @@ useEffect( () => {
           </Typography>
 
 
-                <Grid container  direction="column"  justify="flex-start" alignItems="flex-start" spacing={3}>
+                <Grid container  direction="column"  justify="flex-start" alignItems="flex-start" spacing={3} style={{textAlign:"left"}}>
 
                 <Grid item xs={12}  >
 

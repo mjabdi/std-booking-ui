@@ -23,6 +23,8 @@ import { faMars, faVenus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Dialog from "@material-ui/core/Dialog";
 
+import Alert from '@material-ui/lab/Alert';
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     textAlign: "justify",
@@ -41,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
     transition: "all 0.4s ease-in-out",
     boxShadow: " 0 0 10px rgb(0 0 0 / 20%)",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("xs")]: {
       minHeight: "170px",
     },
 
@@ -160,7 +162,7 @@ const Individuals = [
   },
   {
     packageName: "HPV TESTING",
-    price: "£120.00",
+    price: "£200.00",
   },
   {
     packageName: "BACTERIAL SWAB TESTING",
@@ -316,13 +318,47 @@ export default function PackageForm() {
           style={{
             textAlign: "center",
             fontSize: "1.2rem",
-            fontWeight: "400",
-            color: "#555",
+            fontWeight: "500",
+            color: "#ff7a11",
             marginBottom: "20px",
           }}
         >
           Full STD Check Packages
         </div>
+
+
+          <Alert severity="info">
+
+            
+        <div
+            style={{
+              textAlign: "center",
+              width: "100%",
+              fontSize: "1.2rem",
+              fontWeight: "400",
+              color: "#333",
+              marginBottom: "20px",
+              // marginTop: "20px",
+            }}
+          >
+            Why Choose a Package?
+          </div>
+
+          <div
+            style={{
+              textAlign: "center",
+              width: "100%",
+              fontWeight: "400",
+              color: "#333",
+            }}
+          >
+            Our STD Packages offer <b>excellent value</b> for our{" "}
+            <b>premium service</b>. Included as standard: <b>A free review</b>{" "}
+            of your results with our GP and a <b>free prescription</b> for
+            whatever medication which you may need.
+          </div>
+          </Alert>
+
 
         <Grid
           container
@@ -331,7 +367,7 @@ export default function PackageForm() {
           style={{ marginTop: "10px" }}
         >
           {Packages.map((item) => (
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} sm={3} md={3}>
               <div
                 className={classes.packageBox}
                 style={
@@ -361,7 +397,7 @@ export default function PackageForm() {
                     style={{ width: "97%" }}
                   >
                     <Grid item xs={12}>
-                      <div style={{ fontWeight: "500", fontSize: "1.8rem" }}>
+                      <div style={{ fontWeight: "500", fontSize: "1.2rem" }}>
                         {item.title}
                       </div>
                     </Grid>
@@ -371,9 +407,9 @@ export default function PackageForm() {
                         {item.malePrice === item.femalePrice && (
                           <div
                             style={{
-                              fontSize: "2rem",
-                              marginTop: "35px",
-                              marginBottom: "45px",
+                              fontSize: "1rem",
+                              marginTop: "22px",
+                              marginBottom: "35px",
                               fontWeight: "600",
                             }}
                           >
@@ -385,30 +421,30 @@ export default function PackageForm() {
                           <React.Fragment>
                             <div
                               style={{
-                                fontSize: "2rem",
+                                fontSize: "1rem",
                                 fontWeight: "600",
-                                marginTop: "10px",
+                                marginTop: "0px",
                               }}
                             >
                               <FontAwesomeIcon
                                 icon={faMars}
-                                style={{ fontSize: "2rem" }}
+                                style={{ fontSize: "1.5rem" }}
                                 transform="left-4 down-1"
                               />{" "}
                               {item.malePrice}
                             </div>
                             <div
                               style={{
-                                fontSize: "2rem",
+                                fontSize: "1rem",
                                 fontWeight: "600",
-                                marginTop: "10px",
-                                marginBottom: "20px",
+                                marginTop: "5px",
+                                marginBottom: "10px",
                               }}
                             >
                               <FontAwesomeIcon
                                 icon={faVenus}
-                                style={{ fontSize: "2rem" }}
-                                transform="left-4 down-1"
+                                style={{ fontSize: "1.5rem" }}
+                                transform="left-6 down-1"
                               />{" "}
                               {item.femalePrice}
                             </div>
@@ -444,36 +480,25 @@ export default function PackageForm() {
                   </Grid>
                 </Grid>
               </div>
+
             </Grid>
           ))}
 
-          <div
-            style={{
-              textAlign: "center",
-              width: "100%",
-              fontSize: "1.2rem",
-              fontWeight: "400",
-              color: "#777",
-              marginBottom: "20px",
-              marginTop: "20px",
-            }}
-          >
-            Why Choose a Package?
-          </div>
 
-          <div
-            style={{
-              textAlign: "center",
-              width: "100%",
-              fontWeight: "400",
-              color: "#777",
-            }}
-          >
-            Our STD Packages offer <b>excellent value</b> for our{" "}
-            <b>premium service</b>. Included as standard: <b>A free review</b>{" "}
-            of your results with our GP and a <b>free prescription</b> for
-            whatever medication which you may need.
-          </div>
+              <div
+                style={{
+                  textAlign: "left",
+                  width: "100%",
+                  fontWeight: "600",
+                  color: "#333",
+                  marginTop:"10px"
+                }}
+              >
+                <Alert severity="info" style={{fontWeight: "500"}}>
+                   packages carry NO extra charges for blood draw.
+                </Alert>
+        
+              </div>
         </Grid>
       </div>
 
@@ -505,7 +530,7 @@ export default function PackageForm() {
           style={{ marginTop: "10px" }}
         >
           {Packages2.map((item) => (
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} sm={6}>
               <div
                 className={classes.packageBox}
                 style={
@@ -629,7 +654,7 @@ export default function PackageForm() {
         style={{ marginTop: "10px" }}
       >
         {Individuals.map((item) => (
-          <Grid item xs={12} md={3}>
+          <Grid item  xs={6} sm={3} md={3}>
             <div
               className={classes.packageBox}
               style={
@@ -736,7 +761,7 @@ export default function PackageForm() {
         style={{ marginTop: "10px" }}
       >
         {IndividualsCombo.map((item) => (
-          <Grid item xs={12} md={4}>
+          <Grid item xs={6} sm={4} md={4}>
             <div
               className={classes.packageBox}
               style={
