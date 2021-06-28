@@ -130,20 +130,20 @@ const Individuals = [
   },
   {
     packageName: "CHLAMYDIA TESTING",
-    price: "£69.00",
+    price: "£79.00",
   },
   {
     packageName: "SYPHILIS BLOOD TESTING",
     price: "£55.00",
   },
-  {
-    packageName: "HERPES TESTING",
-    desc: "Herpes I & II",
-    price: "£92.50",
-  },
+  // {
+  //   packageName: "HERPES TESTING",
+  //   desc: "Herpes I & II",
+  //   price: "£92.50",
+  // },
   {
     packageName: "GONORRHOEA TESTING",
-    price: "£69.00",
+    price: "£79.00",
   },
   {
     packageName: "HEPATITIS A PROFILE TESTING",
