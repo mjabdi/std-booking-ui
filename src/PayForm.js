@@ -139,6 +139,8 @@ export default function PayForm() {
 
           <div>
 
+
+
             <Alert severity="info" style={{marginBottom:"15px", fontSize:"0.95rem" ,lineHeight:"1.5rem", textAlign:"justify"}}>
             This is the deposit to secure your appointment, you can cancel anytime up-to 48 hours of your appointment.
 

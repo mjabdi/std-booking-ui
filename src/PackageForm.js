@@ -327,6 +327,12 @@ export default function PackageForm() {
         </div>
 
 
+        <Alert severity="warning" style={{marginBottom:"15px", fontSize:"0.9rem" ,lineHeight:"1.5rem", textAlign:"justify"}}>
+           Please note, when providing a <b>urine sample</b> you must have been holding your urine for <b>3 hours prior</b> to your appointment. If this isn’t possible, we will provide you with the sample container for you to drop back once you a sample has been provided.
+           </Alert>
+
+
+
           <Alert severity="info">
 
             

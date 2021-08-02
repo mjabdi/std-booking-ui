@@ -6,7 +6,7 @@ const darkBlack = "rgb(36, 40, 44)";
 const background = "#f9f9f9";
 
 const warningLight = "rgba(253, 200, 69, .3)";
-const warningMain = "rgba(253, 200, 69, .5)";
+const warningMain = "#ff5500";
 const warningDark = "rgba(253, 200, 69, .7)";
 
 // border
