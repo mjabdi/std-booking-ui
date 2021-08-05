@@ -651,6 +651,17 @@ export default function PackageForm() {
         , which includes a follow-up appointment and treatment.
       </div>
 
+      <div style={{
+        color: "#f00000",
+        fontSize:"1rem",
+        fontWeight:"500",
+        padding: "10px"
+
+      }}
+      >
+        * PLEASE NOTE INDIVIDUAL BLOOD TESTS CARRY A <b>£50</b> BLOOD DRAW FEE
+      </div>
+
       <Grid
         container
         spacing={1}
@@ -853,30 +864,19 @@ export default function PackageForm() {
 
         <div
           style={{
-            backgroundColor: "#a0a0a0",
-            color: "#fff",
+            backgroundColor: "#fff5f5",
+            color: "#cc0000",
             borderRadius: "4px",
             padding: "10px",
-            fontSize: "1rem",
+            fontSize: "1.1rem",
             marginTop: "20px",
             marginBottom: "10px",
             fontWeight: "400",
+            lineHeight:"1.8rem",
+            textAlign: "center"
           }}
         >
-          A blood draw fee of{" "}
-          <span
-            style={{
-              backgroundColor: "#f68529",
-              padding: "1px 6px",
-              fontWeight: "500",
-              fontSize: "1.2rem",
-            }}
-          >
-            £50
-          </span>{" "}
-          is payable for STI blood tests, urine tests and swabs carry no
-          surcharge.
-        </div>
+        If you are attending for a blood test on a self request basis (not referred by our doctor, as part of a package or a health screen) a blood draw fee of <b>£50</b>  is payable in addition to the fee for your test.        </div>
       </Grid>
 
       {infoItem && (

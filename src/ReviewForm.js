@@ -375,6 +375,15 @@ export default function ReviewForm() {
                       {state.packagePrice || "-"}{" "}
                     </span>
                   </li>
+                  <li>
+                    <div style={{
+                      color: "#f00000",
+                      fontWeight:"500",
+                      margin:"10px 0px"
+                    }}>
+                    * If you are attending for a blood test on a self request basis (not referred by our doctor, as part of a package or a health screen) a blood draw fee of <b>£50</b> is payable in addition to the fee for your test.
+                    </div>
+                  </li>
                 </ul>
               </div>
             </Grid>
