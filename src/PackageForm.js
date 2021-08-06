@@ -871,9 +871,9 @@ export default function PackageForm() {
             fontSize: "1.1rem",
             marginTop: "20px",
             marginBottom: "10px",
-            fontWeight: "400",
+            fontWeight: "500",
             lineHeight:"1.8rem",
-            textAlign: "center"
+            textAlign: "center",
           }}
         >
         If you are attending for a blood test on a self request basis (not referred by our doctor, as part of a package or a health screen) a blood draw fee of <b>£50</b>  is payable in addition to the fee for your test.        </div>
