@@ -257,14 +257,17 @@ export default function AgreementForm() {
 
 
 const getAgreeClicked = (event) => {
-    if (check.check1 && check.check2 && check.check3 && check.check4)
-    {
-        setState(state => ({...state, agreed: true}));
-    }
-    else
-    {
-        setError(true);
-    }
+
+  setState(state => ({...state, agreed: true}));
+
+    // if (check.check1 && check.check2 && check.check3 && check.check4)
+    // {
+    //     setState(state => ({...state, agreed: true}));
+    // }
+    // else
+    // {
+    //     setError(true);
+    // }
 }
 
 useEffect( () => {
@@ -313,8 +316,24 @@ useEffect( () => {
               Patients wishing to book an appointment must confirm that:
           </Typography>
 
+            <ul style={{fontSize:"1.1rem", color:"#333", textAlign:"left"}}>
+              <li style={{marginTop:"15px"}}>
+                {`I do not have a fever`}
+              </li>
+              <li style={{marginTop:"15px"}}>
+                {`I do not have a new, continuous cough`}
+              </li>
 
-                <Grid container  direction="column"  justify="flex-start" alignItems="flex-start" spacing={3} style={{textAlign:"left"}}>
+              <li style={{marginTop:"15px"}}>
+                {`I do not have shortness of breath`}
+              </li>
+              <li style={{marginTop:"15px"}}>
+                {`I have not been in contact with someone suspected or known to have coronavirus`}
+              </li>
+            </ul>
+                  
+
+                {/* <Grid container  direction="column"  justify="flex-start" alignItems="flex-start" spacing={3} style={{textAlign:"left"}}>
 
                 <Grid item xs={12}  >
 
@@ -353,16 +372,7 @@ useEffect( () => {
                             />
                     </Grid>
 
-                    {/* <Grid item xs={12}  >
-
-                        <FormControlLabel style={{ fontSize: '1rem', textAlign:"justify" }}
-                                    control={<Checkbox color="secondary" name="check5" checked={check.check5} onChange={(event => checkClicked(event,5))}  />}
-                                    label={<span style={{ fontSize: '1rem', textAlign:"left" }}>{`I confirm that this appointment is for a Fit to Fly PCR Test, not for the Test to Release scheme.`} 
-                                    </span>}
-                                />
-                        </Grid> */}
-
-                </Grid>
+                </Grid> */}
 
              
 
@@ -371,14 +381,14 @@ useEffect( () => {
                
 
             <p className={isMobile ? classes.textContentMobile : classes.textContent}>
-                 If you cannot confirm all the points stated above, you must not proceed any further and must self-isolate for the next 14 days. Please click the box to agree to these terms.
+                 If you cannot confirm all the points stated above, you must not proceed any further and must self-isolate for the next 14 days. Please click the "Agree" button to agree to these terms.
             </p>
 
             {error && (
                 <Alert severity="error">You need to check all the terms to proceed! </Alert>
             )}
             
-
+{/* 
         <Button 
                 // variant="contained" 
                 className={classes.getStartedButton} 
@@ -388,7 +398,7 @@ useEffect( () => {
                 onTouchTap={backButtonClicked} 
                 >
         Back
-        </Button>
+        </Button> */}
 
           <Button 
                   variant="contained" 
