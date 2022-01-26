@@ -126,15 +126,15 @@ const Individuals = [
   {
     packageName: "HIV TESTING",
     desc: "HIV I & II",
-    price: "£49.00",
+    price: "£65.00",
   },
   {
     packageName: "CHLAMYDIA TESTING",
-    price: "£79.00",
+    price: "£91.00",
   },
   {
     packageName: "SYPHILIS BLOOD TESTING",
-    price: "£55.00",
+    price: "£74.00",
   },
   // {
   //   packageName: "HERPES TESTING",
@@ -143,7 +143,7 @@ const Individuals = [
   // },
   {
     packageName: "GONORRHOEA TESTING",
-    price: "£79.00",
+    price: "£91.00",
   },
   {
     packageName: "HEPATITIS A PROFILE TESTING",
@@ -162,11 +162,11 @@ const Individuals = [
   },
   {
     packageName: "HPV TESTING",
-    price: "£200.00",
+    price: "£230.00",
   },
   {
     packageName: "BACTERIAL SWAB TESTING",
-    price: "£68.50",
+    price: "£71.50",
   },
 ];
 
