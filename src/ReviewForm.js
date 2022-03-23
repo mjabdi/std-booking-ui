@@ -429,13 +429,23 @@ export default function ReviewForm() {
           </div>
         </Fade>
         <div className={classes.terms}>
-          By clicking on "SUBMIT" button you are agreeing with our{" "}
+          By clicking on the "SUBMIT" button you are agreeing with our{" "}
           <a
             className={classes.link}
             target="_blank"
             href="https://www.medicalexpressclinic.co.uk/terms-and-conditions"
           >
-            terms and condition.
+            terms and condition
+          </a>
+          &nbsp;
+          and 
+          &nbsp;
+          <a
+            className={classes.link}
+            target="_blank"
+            href="https://www.medicalexpressclinic.co.uk/consent-to-treatment-policies"
+          >
+            consent to treatment policies.
           </a>
         </div>
 
