@@ -148,17 +148,17 @@ const Individuals = [
   {
     packageName: "HEPATITIS A PROFILE TESTING",
     desc: "A",
-    price: "£87.00",
+    price: "£98.00",
   },
   {
     packageName: "HEPATITIS B PROFILE TESTING",
     desc: "B",
-    price: "£109.50",
+    price: "£157.00",
   },
   {
     packageName: "HEPATITIS C ANTIBODIES TESTING",
     desc: "C",
-    price: "£89.00",
+    price: "£120.00",
   },
   {
     packageName: "HPV TESTING",
