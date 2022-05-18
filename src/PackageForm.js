@@ -129,7 +129,7 @@ const Individuals = [
     price: "£65.00",
   },
   {
-    packageName: "CHLAMYDIA TESTING",
+    packageName: "CHLAMYDIA and GONORRHOEA TESTING",
     price: "£91.00",
   },
   {
@@ -141,10 +141,10 @@ const Individuals = [
   //   desc: "Herpes I & II",
   //   price: "£92.50",
   // },
-  {
-    packageName: "GONORRHOEA TESTING",
-    price: "£91.00",
-  },
+  // {
+  //   packageName: "GONORRHOEA TESTING",
+  //   price: "£91.00",
+  // },
   {
     packageName: "HEPATITIS A PROFILE TESTING",
     desc: "A",
@@ -173,7 +173,7 @@ const Individuals = [
 const IndividualsCombo = [
   {
     packageName: "CHLAMYDIA, GONORRHOEA AND TRICHOMONAS",
-    price: "£114.00",
+    price: "£137.00",
   },
   {
     packageName: "HIV I & II WITH SYPHILIS",
