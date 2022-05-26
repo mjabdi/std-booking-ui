@@ -527,7 +527,7 @@ export default function PackageForm() {
             marginTop: "20px",
           }}
         >
-          FAST STD SCREENS RESULTS - IN 4 WORKING HOURS
+          FAST STD SCREENS RESULTS - IN 24 HOURS
         </div>
         <Grid
           container
