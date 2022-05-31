@@ -78,6 +78,10 @@ export default function InformationForm() {
   const [state, setState] = React.useContext(GlobalState);
   const [fullname, setFullname] = React.useState(state.fullname ?? "");
   const [email, setEmail] = React.useState(state.email ?? "");
+
+  const [gender, setGender] = React.useState(state.gender ?? "");
+
+
   const [retypeEmail, setRetypeEmail] = React.useState(state.retypeEmail ?? "");
   const [emailConfirmed, setEmailConfirmed] = React.useState(
     state.emailConfirmed ?? false
@@ -116,6 +120,14 @@ export default function InformationForm() {
     setState((state) => ({ ...state, email: event.target.value }));
     if (event.target.value && EmailValidator.validate(event.target.value)) {
       setState((state) => ({ ...state, emailError: false }));
+    }
+  };
+
+  const genderChanged = (event) => {
+    setGender(event.target.value);
+    setState((state) => ({ ...state, gender: event.target.value }));
+    if (event.target.value) {
+      setState((state) => ({ ...state, genderError: false }));
     }
   };
 
@@ -200,6 +212,25 @@ export default function InformationForm() {
             // helperText = 'This email address is where you will receive your results. Please tick the box below to confirm that this is a private email address to which you are happy for us to send your results.'
           />
         </Grid>
+
+
+        <Grid item xs={12} md={12}>
+          <FormControl required fullWidth>
+            <InputLabel id="gender-label">Gender</InputLabel>
+            <Select
+              error={state.genderError ? true : false}
+              required
+              labelId="gender-label"
+              id="gender-select"
+              value={gender}
+              onChange={genderChanged}
+            >
+              <MenuItem value={"M"}>{`Male`}</MenuItem>
+              <MenuItem value={"F"}>{`Female`}</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+
 
         {/* <Grid item xs={12} md={6}>
           <TextField

@@ -53,6 +53,12 @@ export default function ValidateStep (state,setState, step, hasPackage)
         error = true;
       }
 
+      if (!state.gender)
+      {
+        setState(state => ({...state, genderError : true}));
+        error = true;
+      }
+
       // if (!state.retypeEmail || !EmailValidator.validate(state.retypeEmail) || state.email !== state.retypeEmail)
       // {
       //   setState(state => ({...state, retypeEmailError : true}));

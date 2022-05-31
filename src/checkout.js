@@ -273,6 +273,7 @@ export default function Checkout() {
           email: state.email || '',
           phone: state.phone || '',
           notes: state.notes || '',
+          gender: state.gender,
           packageName : state.packageName,
           estimatedPrice: state.packagePrice
         };
