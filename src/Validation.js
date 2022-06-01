@@ -59,6 +59,12 @@ export default function ValidateStep (state,setState, step, hasPackage)
         error = true;
       }
 
+      if (!state.birthDate || state.birthDate.length !== 10)
+      {
+        setState(state => ({...state, birthDateError : true}));
+        error = true;
+      }
+      
       // if (!state.retypeEmail || !EmailValidator.validate(state.retypeEmail) || state.email !== state.retypeEmail)
       // {
       //   setState(state => ({...state, retypeEmailError : true}));

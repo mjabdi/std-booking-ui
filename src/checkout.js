@@ -275,7 +275,8 @@ export default function Checkout() {
           notes: state.notes || '',
           gender: state.gender,
           packageName : state.packageName,
-          estimatedPrice: state.packagePrice
+          estimatedPrice: state.packagePrice,
+          birthDate: state.birthDate
         };
 
         const promise = BookService.bookAppointment({
