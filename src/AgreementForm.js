@@ -318,17 +318,10 @@ useEffect( () => {
 
             <ul style={{fontSize:"1.1rem", color:"#333", textAlign:"left"}}>
               <li style={{marginTop:"15px"}}>
-                {`I do not have a fever`}
+                {`I do not have any symptoms of COVID-19.`}
               </li>
               <li style={{marginTop:"15px"}}>
-                {`I do not have a new, continuous cough`}
-              </li>
-
-              <li style={{marginTop:"15px"}}>
-                {`I do not have shortness of breath`}
-              </li>
-              <li style={{marginTop:"15px"}}>
-                {`I have not been in contact with someone suspected or known to have coronavirus`}
+                {`I have not been in contact recently with a confirmed COVID-19 case.`}
               </li>
             </ul>
                   
@@ -380,8 +373,8 @@ useEffect( () => {
 
                
 
-            <p className={isMobile ? classes.textContentMobile : classes.textContent}>
-                 If you cannot confirm all the points stated above, you must not proceed any further and must self-isolate for the next 14 days. Please click the "Agree" button to agree to these terms.
+            <p className={isMobile ? classes.textContentMobile : classes.textContent} style={{background:"#ffe8e8", color : "#990000", padding:"10px", borderRadius: "8px"}}>
+                If you cannot confirm all the point stated above, you must not proceed any further. Please click the "Agree" button to agree to these terms.
             </p>
 
             {error && (

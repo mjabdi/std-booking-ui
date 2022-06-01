@@ -25,18 +25,19 @@ export default function ValidateStep (state,setState, step, hasPackage)
       // validate Package
       if (!state.packageName || state.packageName.length < 1)
       {
-        error = true;
+        // error = true;
+        setState(state => ({...state, packageName : 'Individual Tests'}));
       }
 
-      if (state.packageName === "Indivisual Tests" && state.indivisualTests.length === 0)
-      {
-        error = true;
-      }
+      // if (state.packageName === "Indivisual Tests" && state.indivisualTests.length === 0)
+      // {
+      //   error = true;
+      // }
 
-      if (state.packageName === "Combo STD Checks" && state.indivisualCombos.length === 0)
-      {
-        error = true;
-      }
+      // if (state.packageName === "Combo STD Checks" && state.indivisualCombos.length === 0)
+      // {
+      //   error = true;
+      // }
 
     }
     
@@ -64,7 +65,7 @@ export default function ValidateStep (state,setState, step, hasPackage)
         setState(state => ({...state, birthDateError : true}));
         error = true;
       }
-      
+
       // if (!state.retypeEmail || !EmailValidator.validate(state.retypeEmail) || state.email !== state.retypeEmail)
       // {
       //   setState(state => ({...state, retypeEmailError : true}));

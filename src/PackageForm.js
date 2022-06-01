@@ -25,6 +25,10 @@ import Dialog from "@material-ui/core/Dialog";
 
 import Alert from '@material-ui/lab/Alert';
 
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import Chip from "@material-ui/core/Chip";
+import {matchSorter} from 'match-sorter'
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     textAlign: "justify",
@@ -54,6 +58,16 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     marginBottom: "15px",
   },
+
+  listOptions:{
+    backgroundColor: "#ffcd9e",
+    color: "#000",
+    borderRadius:"30px",
+    padding: "10px",
+    fontWeight:"500",
+    fontSize: "1rem"
+  },
+
 }));
 
 export const Packages = [
@@ -126,15 +140,15 @@ const Individuals = [
   {
     packageName: "HIV TESTING",
     desc: "HIV I & II",
-    price: "£65.00",
+    price: 65.00,
   },
   {
     packageName: "CHLAMYDIA and GONORRHOEA TESTING",
-    price: "£91.00",
+    price: 91.00,
   },
   {
     packageName: "SYPHILIS BLOOD TESTING",
-    price: "£74.00",
+    price: 74.00,
   },
   // {
   //   packageName: "HERPES TESTING",
@@ -148,25 +162,36 @@ const Individuals = [
   {
     packageName: "HEPATITIS A PROFILE TESTING",
     desc: "A",
-    price: "£98.00",
+    price: 98.00,
   },
   {
     packageName: "HEPATITIS B PROFILE TESTING",
     desc: "B",
-    price: "£157.00",
+    price: 157.00,
   },
   {
     packageName: "HEPATITIS C ANTIBODIES TESTING",
     desc: "C",
-    price: "£120.00",
+    price: 120.00,
   },
   {
     packageName: "HPV TESTING",
-    price: "£230.00",
+    price: 230.00,
   },
   {
     packageName: "BACTERIAL SWAB TESTING",
-    price: "£71.50",
+    price: 71.50,
+  },
+
+
+
+  {
+    packageName: "CHLAMYDIA, GONORRHOEA AND TRICHOMONAS",
+    price: 137.00,
+  },
+  {
+    packageName: "HIV I & II WITH SYPHILIS",
+    price: 190.00,
   },
 ];
 
@@ -192,10 +217,36 @@ export default function PackageForm() {
   const classes = useStyles();
   const [state, setState] = React.useContext(GlobalState);
 
+  const searchRef = React.useRef(null)
+
+  const [noOptionsText, setNoOptionsText] = React.useState('')
+  const [indivisualTests, setIndivisualTests] = React.useState(state.indivisualTests? state.indivisualTests : [])
+
+
+
   const [packageName, setPackageName] = React.useState(state.packageName || "");
   const [packagePrice, setPackagePrice] = React.useState(
     state.packagePrice || 0
   );
+
+
+  const filterOptions = (options, { inputValue }) => {
+
+    setNoOptionsText("")
+    return matchSorter(options, inputValue, {keys: ['packageName']});
+
+    // if (inputValue && inputValue.length >= 3)
+    // {
+    //   setNoOptionsText("")
+    //   return matchSorter(options, inputValue, {keys: ['code', 'description']});
+    // }
+    // else
+    // {
+    //   setNoOptionsText("Please enter at least 3 characters")
+    //   return matchSorter(options, '$$$$', {keys: ['code', 'description']});
+    // }
+  }
+
 
   const [notes, setNotes] = React.useState(state.notes ?? "");
 
@@ -302,6 +353,24 @@ export default function PackageForm() {
 
   return (
     <React.Fragment>
+
+      <div
+        style={{
+          textAlign: "center",
+          width: "100%",
+          fontWeight: "500",
+          color: "#111",
+          lineHeight: "1.4rem",
+          fontSize: "1.1em",
+          backgroundColor: "#fffdcf",
+          borderRadius: "10px",
+          padding: "10px",
+          marginBottom: "10px"
+        }}
+      >
+        If you are currently experiencing symptoms, we strongly advise that you choose a <strong>package</strong>, which includes an examination by the doctor and a follow-up appointment with a prescription for medication if necessary.
+      </div>
+
       <Typography className={classes.pageTitle} variant="h6" gutterBottom>
         Choose your Package
       </Typography>
@@ -624,9 +693,9 @@ export default function PackageForm() {
       <div
         style={{
           textAlign: "center",
-          fontSize: "1.5rem",
-          fontWeight: "400",
-          color: "#555",
+          fontSize: "1.4rem",
+          fontWeight: "500",
+          color: "#ff7a11",
           marginBottom: "10px",
           marginTop: "20px",
         }}
@@ -639,8 +708,12 @@ export default function PackageForm() {
           textAlign: "center",
           width: "100%",
           fontWeight: "400",
-          color: "#777",
+          color: "#111",
           lineHeight: "1.4rem",
+          fontSize: "1.1em",
+          backgroundColor:"#fffdcf",
+          borderRadius: "10px",
+          padding: "10px" 
         }}
       >
         For peace of mind,{" "}
@@ -662,7 +735,119 @@ export default function PackageForm() {
         * PLEASE NOTE INDIVIDUAL BLOOD TESTS CARRY A <b>£50</b> BLOOD DRAW FEE
       </div>
 
-      <Grid
+
+      <div
+            style={{
+              textAlign: "center",
+              width: "100%",
+              fontSize: "1rem",
+              fontWeight: "500",
+              color: "#777",
+              marginBottom: "10px",
+              marginTop: "30px",
+            }}
+          >
+            Looking for an individual test? Please choose from the below menu :
+          </div>
+
+          <div
+            style={{
+              textAlign: "center",
+              width: "100%",
+              fontWeight: "400",
+              color: "#777",
+            }}
+          >
+            <Autocomplete
+              ref={searchRef}
+              onFocus={() => searchRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              multiple
+              id="tags-outlined"
+              noOptionsText={noOptionsText}
+              value={indivisualTests}
+              onChange={(event, newValue) => {
+                
+                 setIndivisualTests(newValue)
+                 setState(state => ({...state, indivisualTests: newValue}))
+                 if (newValue && newValue.length > 0)
+                 {
+                    setPackageName(`Individual Tests`);
+                    setState((state) => ({
+                      ...state,
+                      packageName: `Individual Tests`,
+                      packagePrice: 0,
+                    }));
+                 }else{
+                    setPackageName(``);
+                    setState((state) => ({
+                      ...state,
+                      packageName: ``,
+                      packagePrice: 0,
+                    }));
+                 }
+              }}
+              filterOptions={filterOptions} 
+              options={Individuals.sort((a, b) => -b.packageName.localeCompare(a.packageName))}
+              // groupBy={(option) => option.firstLetter}
+              getOptionLabel={(option) => <div className={classes.listOptions}>
+                {option.packageName} - {parseFloat(
+                  option.price
+                ).toLocaleString("en-GB", {
+                  style: "currency",
+                  currency: "GBP",
+                })}</div>
+              }
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
+                    variant="outlined"
+                    color="primary"
+                    label={
+                      <Typography
+                        style={{
+                          whiteSpace: "normal",
+                          fontSize: "0.9rem",
+                          fontWeight: "500",
+                          padding: "10px",
+                          width: "100%",
+                        }}
+                      >
+                        {`${option.packageName} - ${parseFloat(
+                          option.price
+                        ).toLocaleString("en-GB", {
+                          style: "currency",
+                          currency: "GBP",
+                        })}`}
+                      </Typography>
+                    }
+                    {...getTagProps({ index })}
+                    style={{ height: "100%", width: "100%" }}
+                  />
+                  // <Chip variant="outlined" color="primary"  label={option} style={{width:"100%", fontWeight:"500"}} {...getTagProps({ index })} />
+                ))
+              }
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField
+                  fullWidth
+                  {...params}
+                  variant="outlined"
+                  label="Individual STD Tests"
+                  placeholder="Choose Your Test"
+                />
+              )}
+            />
+          </div>
+
+
+
+
+
+
+
+
+
+      {/* <Grid
         container
         spacing={1}
         direction="row"
@@ -755,8 +940,8 @@ export default function PackageForm() {
           </Grid>
         ))}
       </Grid>
-
-      <div
+ */}
+      {/* <div
         style={{
           textAlign: "center",
           fontSize: "1.5rem",
@@ -767,9 +952,9 @@ export default function PackageForm() {
         }}
       >
         Combo STD Checks
-      </div>
+      </div> */}
 
-      <Grid
+      {/* <Grid
         container
         spacing={1}
         direction="row"
@@ -862,7 +1047,10 @@ export default function PackageForm() {
           </Grid>
         ))}
 
-        <div
+      </Grid> */}
+
+
+      <div
           style={{
             backgroundColor: "#fff5f5",
             color: "#cc0000",
@@ -877,7 +1065,7 @@ export default function PackageForm() {
           }}
         >
         If you are attending for a blood test on a self request basis (not referred by our doctor, as part of a package or a health screen) a blood draw fee of <b>£50</b>  is payable in addition to the fee for your test.        </div>
-      </Grid>
+
 
       {infoItem && (
         <Dialog onClose={handleCloseDialog} open={showInfoDialog}>

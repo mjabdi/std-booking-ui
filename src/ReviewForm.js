@@ -234,9 +234,9 @@ export default function ReviewForm() {
   const calculatePrice = () => {
     let price = 0;
     let packageDetails = ''
-    if (state.packageName === "Indivisual Tests") {
+    if (state.packageName === "Individual Tests") {
       state.indivisualTests.forEach((element,index) => {
-        price += parseFloat(element.price.substr(1));
+        price += element.price;
         packageDetails += (element.packageName)
         if (index < state.indivisualTests.length - 1)
         {
@@ -256,11 +256,23 @@ export default function ReviewForm() {
       return;
     }
 
+
+  if (state.packageName === "Individual Tests" && (!state.indivisualTests || state.indivisualTests.length === 0) )
+  {
+    setState((state) => ({
+      ...state,
+      packagePrice: "-",
+      packageName:  `Individual Tests`
+    }));
+  }else
+  {
     setState((state) => ({
       ...state,
       packagePrice: price.toLocaleString("en-GB", { style: 'currency', currency: 'GBP' }),
-      packageName: `${state.packageName} (${packageDetails})`
+      packageName:  `${state.packageName} (${packageDetails})`
     }));
+  }
+
   };
 
   const dataConfirmedChanged = (event) => {
@@ -414,6 +426,11 @@ export default function ReviewForm() {
                       {" "}
                       {state.email || "-"}{" "}
                     </span>
+                  </li>
+
+                  <li className={classes.li}>
+                    <span className={classes.infoTitle}>Date of Birth</span>
+                    <span className={classes.infoData}> {FormatDateFromString(state.birthDate)} </span>
                   </li>
 
                   <li className={classes.li}>
