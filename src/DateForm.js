@@ -96,6 +96,8 @@ export default function DateForm() {
        
         setFullyBookedDays(values[1].data);
 
+        console.log(values[1].data)
+
         setDataLoaded(true);
 
       }).catch( (err) =>
