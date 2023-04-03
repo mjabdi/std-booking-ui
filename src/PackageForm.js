@@ -74,8 +74,8 @@ export const Packages = [
   {
     packageName: "Sexual Health Clinic - Bronze",
     title: "Bronze",
-    malePrice: "£250.00",
-    femalePrice: "£250.00",
+    malePrice: "£350.00",
+    femalePrice: "£350.00",
     color: "#aaa",
     descriptions: [
       "Chlamydia and Gonorrhoea - Urine Sample",
