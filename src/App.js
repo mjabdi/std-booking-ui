@@ -16,7 +16,7 @@ const getPackageName = () =>
 }
 
 function App() {
-  const [state, setState] = React.useState({activeStep : 0, bookingDate: null, persons: [], indivisualTests: [], indivisualCombos: [], getStarted : true});
+  const [state, setState] = React.useState({activeStep : 0, bookingDate: null, persons: [], indivisualTests: [], indivisualCombos: [], getStarted : true, agreed: true});
 
   useEffect(() => {
     
